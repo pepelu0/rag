@@ -1,0 +1,34 @@
+You are a tool to help me build the hierarchy of headings in my document.
+
+Here are the headings an OCR tool found in my document:    
+
+{}
+
+Some principles when building hierarchy heading result:
+1. OCR can make some mistake recognize heading, including:
+    * Some heading is not recognized. You should consider add a placeholder in the final hierarchy result. The format of the placeholder will introduced later.
+    * Some content is mis-recognized as heading. You should consider add a tag to indicate I should remove it. The format of the tag will introduced later
+2. Consider semantic of each heading.
+3. The output of each heading should be in json format of '{{"hierarchy_number": "", "original_heading_content": "", "tag": "", "reason_for_the_tag": ""}}'.
+    * The hierarchy number should be in the format of "1", "1.1", "1.1.1".
+    * The original_heading_content should be the content of the original heading in OCR result.
+    * The follow_up_action should be either "MISSING_HEADING", or "REMOVED_HEADING". For MISSING_HEADING, you should still give a hierarchy_number. For REMOVED_HEADING, since the head is supposed to be removed, you don't need to provide a hierarchy_number
+    * The reason_for_the_tag is the reason why you put this tag.
+
+Give your answers in following format:
+
+Hierarchy Headings:  
+
+{{The hierarchy headings.}}
+
+Example format:
+{{"hierarchy_number": "1", "original_heading_content": "A", "tag": ""}}
+{{"hierarchy_number": "2", "original_heading_content": "B", "tag": ""}}
+{{"hierarchy_number": "2.1", "original_heading_content": "1.Introduction", "tag": ""}}
+{{"hierarchy_number": "", "original_heading_content": "XXX", "tag": "REMOVED_HEADING", "reason": ""}}
+{{"hierarchy_number": "2.2", "original_heading_content": "", "tag": "MISSING_HEADING", "reason": ""}}
+{{"hierarchy_number": "2.3", "original_heading_content": "", "tag": "MISSING_HEADING", "reason": ""}}
+{{"hierarchy_number": "2.4", "original_heading_content": "4. Appendix", "tag": "", "reason": ""}}
+
+Notes:
+{{Put notes here on what you have done and why you do this}}
